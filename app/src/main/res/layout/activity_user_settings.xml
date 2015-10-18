@@ -109,7 +109,7 @@
                 <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Change Email"
+                    android:text="Delete Account"
                     android:layout_below="@+id/DeleteAccountPass"
                     android:id="@+id/DeleteAccountButton"
                     android:background="#f44336"
