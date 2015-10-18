@@ -1,5 +1,6 @@
 package com.everlesslycoding.revinote;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onAuthenticated(AuthData authData) {
                                 // Authenticated successfully with payload authData
                                 Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
+                                LoadHomePage();
                             }
                             @Override
                             public void onAuthenticationError(FirebaseError error) {
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onAuthenticated(AuthData authData) {
                         // Authenticated successfully with payload authData
                         Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
+                        LoadHomePage();
                     }
                     @Override
                     public void onAuthenticationError(FirebaseError error) {
@@ -80,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
                 rootRef.authWithPassword(Email, Password, LoginHandler);
             }
         });
+    }
+
+    void LoadHomePage() {
+        Intent i = new Intent(this, HomePage.class);
+        //i.putExtra("FireRef", (Serializable) rootRef);
+        startActivity(i);
     }
 
     @Override

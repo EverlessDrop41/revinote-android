@@ -1,16 +1,34 @@
 package com.everlesslycoding.revinote;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.client.Firebase;
 
 public class HomePage extends AppCompatActivity {
+
+    TextView NameLabel;
+    Button SubjectsButton;
+    Button SettingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        NameLabel = (TextView) findViewById(R.id.NameTextView);
+        SubjectsButton = (Button) findViewById(R.id.SubjectsButton);
+        SettingsButton = (Button) findViewById(R.id.AccountSettingBtn);
+
+        Firebase ref = new Firebase("https://revinote.firebaseio.com/");
+
+        NameLabel.setText(ref.getAuth().getProviderData().get("email").toString());
     }
 
     @Override
