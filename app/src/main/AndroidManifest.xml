@@ -22,6 +22,10 @@
             android:name=".HomePage"
             android:label="@string/title_activity_home_page" >
         </activity>
+        <activity
+            android:name=".UserSettings"
+            android:label="@string/title_activity_user_settings" >
+        </activity>
     </application>
 
 </manifest>
