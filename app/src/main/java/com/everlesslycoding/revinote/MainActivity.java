@@ -32,59 +32,65 @@ public class MainActivity extends AppCompatActivity {
 
         rootRef = new Firebase("https://revinote.firebaseio.com/");
 
-        EmailInput = (EditText)findViewById(R.id.EmailInput);
-        PasswordInput = (EditText)findViewById(R.id.PasswordInput);
-        LoginButton = (Button)findViewById(R.id.LoginButton);
+        AuthData authData = rootRef.getAuth();
 
-        LoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String Email = EmailInput.getText().toString();
-                final String Password = PasswordInput.getText().toString();
+        if (authData != null && true) {
+            LoadHomePage();
+        } else {
+            EmailInput = (EditText)findViewById(R.id.EmailInput);
+            PasswordInput = (EditText)findViewById(R.id.PasswordInput);
+            LoginButton = (Button)findViewById(R.id.LoginButton);
 
-                final Firebase.ResultHandler SignUpHandler = new Firebase.ResultHandler() {
-                    @Override
-                    public void onSuccess() {
-                        rootRef.authWithPassword(Email, Password, new Firebase.AuthResultHandler() {
-                            @Override
-                            public void onAuthenticated(AuthData authData) {
-                                // Authenticated successfully with payload authData
-                                Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
-                                LoadHomePage();
-                            }
-                            @Override
-                            public void onAuthenticationError(FirebaseError error) {
-                                Toast.makeText(getBaseContext(), "[SU-LI] ERROR: " + error.getMessage() + " " + Email, Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
+            LoginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String Email = EmailInput.getText().toString();
+                    final String Password = PasswordInput.getText().toString();
 
-                    @Override
-                    public void onError(FirebaseError error) {
-                        Toast.makeText(getBaseContext(), "[SU] ERROR: " + error.getMessage() + " " + Email, Toast.LENGTH_LONG).show();
-                    }
-                };
-
-                 Firebase.AuthResultHandler LoginHandler = new Firebase.AuthResultHandler() {
-                    @Override
-                    public void onAuthenticated(AuthData authData) {
-                        // Authenticated successfully with payload authData
-                        Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
-                        LoadHomePage();
-                    }
-                    @Override
-                    public void onAuthenticationError(FirebaseError error) {
-                        if (error.getCode() == FirebaseError.USER_DOES_NOT_EXIST) {
-                            rootRef.createUser(Email, Password, SignUpHandler);
-                        } else {
-                            Toast.makeText(getBaseContext(), "[LI] ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    final Firebase.ResultHandler SignUpHandler = new Firebase.ResultHandler() {
+                        @Override
+                        public void onSuccess() {
+                            rootRef.authWithPassword(Email, Password, new Firebase.AuthResultHandler() {
+                                @Override
+                                public void onAuthenticated(AuthData authData) {
+                                    // Authenticated successfully with payload authData
+                                    Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
+                                    LoadHomePage();
+                                }
+                                @Override
+                                public void onAuthenticationError(FirebaseError error) {
+                                    Toast.makeText(getBaseContext(), "[SU-LI] ERROR: " + error.getMessage() + " " + Email, Toast.LENGTH_LONG).show();
+                                }
+                            });
                         }
-                    }
-                };
-                Log.d("LOGIN DATA","Email: " + Email + " Password: " + Password);
-                rootRef.authWithPassword(Email, Password, LoginHandler);
-            }
-        });
+
+                        @Override
+                        public void onError(FirebaseError error) {
+                            Toast.makeText(getBaseContext(), "[SU] ERROR: " + error.getMessage() + " " + Email, Toast.LENGTH_LONG).show();
+                        }
+                    };
+
+                    Firebase.AuthResultHandler LoginHandler = new Firebase.AuthResultHandler() {
+                        @Override
+                        public void onAuthenticated(AuthData authData) {
+                            // Authenticated successfully with payload authData
+                            Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
+                            LoadHomePage();
+                        }
+                        @Override
+                        public void onAuthenticationError(FirebaseError error) {
+                            if (error.getCode() == FirebaseError.USER_DOES_NOT_EXIST) {
+                                rootRef.createUser(Email, Password, SignUpHandler);
+                            } else {
+                                Toast.makeText(getBaseContext(), "[LI] ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    };
+                    Log.d("LOGIN DATA","Email: " + Email + " Password: " + Password);
+                    rootRef.authWithPassword(Email, Password, LoginHandler);
+                }
+            });
+        }
     }
 
     void LoadHomePage() {
