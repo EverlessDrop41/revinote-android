@@ -2,12 +2,21 @@ package com.everlesslycoding.revinote;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.firebase.client.AuthData;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
 public class UserSettings extends AppCompatActivity {
+
+    Firebase rootRef;
 
     //Change Password
     EditText ChangePassOldPass;
@@ -38,6 +47,41 @@ public class UserSettings extends AppCompatActivity {
 
         DeleteAccPass = (EditText) findViewById(R.id.DeleteAccountPass);
         DeleteAccBtn = (Button) findViewById(R.id.DeleteAccountButton);
+
+        rootRef = new Firebase("https://revinote.firebaseio.com/");
+
+        AuthData authData = rootRef.getAuth();
+        final String UserEmaill = authData.getProviderData().get("email").toString();
+
+        ChangePassBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String oldPass = ChangePassOldPass.getText().toString();
+                String newPass = ChangePassNewPass.getText().toString();
+
+                Log.d("USER EMAIL", UserEmaill);
+
+                rootRef.changePassword(UserEmaill, oldPass, newPass, new Firebase.ResultHandler() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(), "Successfully Changed Password", Toast.LENGTH_SHORT).show();
+
+                        ChangePassOldPass.setText("");
+                        ChangePassNewPass.setText("");
+                    }
+
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        Toast.makeText(getApplicationContext(), firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        if (firebaseError.getCode() == FirebaseError.INVALID_PASSWORD)
+                        {
+                            ChangePassOldPass.setText("");
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
