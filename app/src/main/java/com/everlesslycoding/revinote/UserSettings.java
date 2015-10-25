@@ -74,7 +74,12 @@ public class UserSettings extends AppCompatActivity {
 
                     @Override
                     public void onError(FirebaseError firebaseError) {
-                        Toast.makeText(getApplicationContext(), firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserSettings.this);
+
+                        builder.setMessage(firebaseError.getMessage()).setTitle("Error Changing Password");
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
 
                         if (firebaseError.getCode() == FirebaseError.INVALID_PASSWORD)
                         {
