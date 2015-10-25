@@ -1,5 +1,6 @@
 package com.everlesslycoding.revinote;
 
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,7 @@ public class UserSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
+        Firebase.setAndroidContext(getApplicationContext());
 
         ChangePassOldPass = (EditText) findViewById(R.id.ChangePasswordOldPass);
         ChangePassNewPass = (EditText) findViewById(R.id.ChangePasswordNewPass);
@@ -51,17 +53,17 @@ public class UserSettings extends AppCompatActivity {
         rootRef = new Firebase("https://revinote.firebaseio.com/");
 
         AuthData authData = rootRef.getAuth();
-        final String UserEmaill = authData.getProviderData().get("email").toString();
+        final String UserEmail = authData.getProviderData().get("email").toString();
 
         ChangePassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String oldPass = ChangePassOldPass.getText().toString();
+                String oldPass = ChangePassOldPass.getText().toString();
                 String newPass = ChangePassNewPass.getText().toString();
 
-                Log.d("USER EMAIL", UserEmaill);
+                Log.d("USER EMAIL", UserEmail);
 
-                rootRef.changePassword(UserEmaill, oldPass, newPass, new Firebase.ResultHandler() {
+                rootRef.changePassword(UserEmail, oldPass, newPass, new Firebase.ResultHandler() {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(getApplicationContext(), "Successfully Changed Password", Toast.LENGTH_SHORT).show();
@@ -77,6 +79,43 @@ public class UserSettings extends AppCompatActivity {
                         if (firebaseError.getCode() == FirebaseError.INVALID_PASSWORD)
                         {
                             ChangePassOldPass.setText("");
+                        }
+                    }
+                });
+            }
+        });
+
+        ChangeEmailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String newEmail = ChangeEmailNewEmail.getText().toString();
+                String pass = ChangeEmailPass.getText().toString();
+
+                rootRef.changeEmail(UserEmail, newEmail, pass, new Firebase.ResultHandler() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(), "Successfully Changed Email", Toast.LENGTH_SHORT).show();
+
+                        ChangeEmailNewEmail.setText("");
+                        ChangeEmailPass.setText("");
+                    }
+
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserSettings.this);
+
+                        builder.setMessage(firebaseError.getMessage()).setTitle("Error Changing Email");
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                        Toast.makeText(getApplicationContext(), UserEmail + " " + newEmail, Toast.LENGTH_SHORT).show();
+
+                        if (firebaseError.getCode() == FirebaseError.INVALID_PASSWORD)
+                        {
+                            ChangeEmailPass.setText("");
+                        } else if (firebaseError.getCode() == FirebaseError.INVALID_EMAIL) {
+                            ChangeEmailNewEmail.setText("");
                         }
                     }
                 });
