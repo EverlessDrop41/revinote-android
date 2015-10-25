@@ -4,13 +4,40 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class UserSettings extends AppCompatActivity {
+
+    //Change Password
+    EditText ChangePassOldPass;
+    EditText ChangePassNewPass;
+    Button ChangePassBtn;
+
+    //Change Email
+    EditText ChangeEmailNewEmail;
+    EditText ChangeEmailPass;
+    Button ChangeEmailBtn;
+
+    //Delete Account
+    EditText DeleteAccPass;
+    Button DeleteAccBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
+
+        ChangePassOldPass = (EditText) findViewById(R.id.ChangePasswordOldPass);
+        ChangePassNewPass = (EditText) findViewById(R.id.ChangePasswordNewPass);
+        ChangePassBtn = (Button) findViewById(R.id.ChangePasswordButton);
+
+        ChangeEmailNewEmail = (EditText) findViewById(R.id.ChangeEmailNewEmail);
+        ChangeEmailPass = (EditText) findViewById(R.id.ChangeEmailPass);
+        ChangeEmailBtn = (Button) findViewById(R.id.ChangeEmailButton);
+
+        DeleteAccPass = (EditText) findViewById(R.id.DeleteAccountPass);
+        DeleteAccBtn = (Button) findViewById(R.id.DeleteAccountButton);
     }
 
     @Override

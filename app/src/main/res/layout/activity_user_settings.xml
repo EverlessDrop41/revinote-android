@@ -66,14 +66,14 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
+                    android:hint="New Email"
                     android:inputType="textEmailAddress"
                     android:id="@+id/ChangeEmailNewEmail"
                     android:layout_below="@id/ChangeEmailLabel"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="New Password"
+                    android:hint="Password"
                     android:inputType="textPassword"
                     android:id="@+id/ChangeEmailPass"
                     android:layout_below="@+id/ChangeEmailNewEmail"/>
