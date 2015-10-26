@@ -8,4 +8,5 @@
     <string name="title_activity_user_settings">Your Settings</string>
     <string name="action_subjects">Subjects</string>
     <string name="action_home">Home</string>
+    <string name="ForgotPassword">Forgot Password?</string>
 </resources>

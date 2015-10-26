@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     EditText EmailInput;
     EditText PasswordInput;
     Button LoginButton;
+    Button ForgotPassBtn;
+
     Firebase rootRef;
 
     @Override
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             EmailInput = (EditText)findViewById(R.id.EmailInput);
             PasswordInput = (EditText)findViewById(R.id.PasswordInput);
             LoginButton = (Button)findViewById(R.id.LoginButton);
+            ForgotPassBtn = (Button) findViewById(R.id.ForgotPassword);
 
             LoginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
                     };
                     Log.d("LOGIN DATA","Email: " + Email + " Password: " + Password);
                     rootRef.authWithPassword(Email, Password, LoginHandler);
+                }
+            });
+
+            ForgotPassBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getBaseContext(), "Not yet implemented", Toast.LENGTH_LONG).show();
                 }
             });
         }
