@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
             ForgotPassBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getBaseContext(), "Not yet implemented", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(MainActivity.this, ForgotPassword.class);
+                    startActivity(i);
                 }
             });
         }

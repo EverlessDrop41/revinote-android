@@ -24,11 +24,19 @@
         </activity>
         <activity
             android:name=".UserSettings"
-            android:parentActivityName=".HomePage"
-            android:label="@string/title_activity_user_settings" >
+            android:label="@string/title_activity_user_settings"
+            android:parentActivityName=".HomePage" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.everlesslycoding.revinote.HomePage" />
+        </activity>
+        <activity
+            android:name=".ForgotPassword"
+            android:label="@string/action_forgot_password"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.everlesslycoding.revinote.MainActivity" />
         </activity>
     </application>
 
