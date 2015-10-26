@@ -34,10 +34,26 @@ public class HomePage extends AppCompatActivity {
         SettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomePage.this, UserSettings.class);
-                startActivity(i);
+                LoadSettingsPage();
             }
         });
+
+        SubjectsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadSubjectsPage();
+            }
+        });
+    }
+
+    void LoadSettingsPage() {
+        Intent i = new Intent(HomePage.this, UserSettings.class);
+        startActivity(i);
+    }
+
+    void LoadSubjectsPage() {
+        //Intent i = new Intent(HomePage.this, UserSettings.class);
+        //startActivity(i);
     }
 
     @Override
@@ -56,7 +72,9 @@ public class HomePage extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            LoadSettingsPage();
+        } else if (id == R.id.action_subjects) {
+            LoadSubjectsPage();
         }
 
         return super.onOptionsItemSelected(item);
