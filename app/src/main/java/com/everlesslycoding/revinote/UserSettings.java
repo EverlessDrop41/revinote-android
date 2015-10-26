@@ -116,8 +116,7 @@ public class UserSettings extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(), UserEmail + " " + newEmail, Toast.LENGTH_SHORT).show();
 
-                        if (firebaseError.getCode() == FirebaseError.INVALID_PASSWORD)
-                        {
+                        if (firebaseError.getCode() == FirebaseError.INVALID_PASSWORD) {
                             ChangeEmailPass.setText("");
                         } else if (firebaseError.getCode() == FirebaseError.INVALID_EMAIL) {
                             ChangeEmailNewEmail.setText("");

@@ -16,6 +16,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
 import java.io.Serializable;
+import java.sql.Ref;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -91,6 +92,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Firebase.setAndroidContext(getApplicationContext());
+
+        rootRef = new Firebase("https://revinote.firebaseio.com/");
+
+        rootRef.unauth();
     }
 
     void LoadHomePage() {
