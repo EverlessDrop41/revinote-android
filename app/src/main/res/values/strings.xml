@@ -6,4 +6,6 @@
     <string name="LoginButton">Login/ Sign Up</string>
     <string name="title_activity_home_page">Revinote Home</string>
     <string name="title_activity_user_settings">Your Settings</string>
+    <string name="action_subjects">Subjects</string>
+    <string name="action_home">Home</string>
 </resources>
