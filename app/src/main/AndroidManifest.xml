@@ -30,15 +30,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.everlesslycoding.revinote.HomePage" />
         </activity>
-        <activity
-            android:name=".ResetPassword"
-            android:label="@string/title_activity_reset_password"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.everlesslycoding.revinote.MainActivity" />
-        </activity>
     </application>
 
 </manifest>

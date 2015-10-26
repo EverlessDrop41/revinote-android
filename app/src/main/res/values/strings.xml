@@ -10,4 +10,7 @@
     <string name="action_home">Home</string>
     <string name="ForgotPassword">Forgot Password?</string>
     <string name="title_activity_reset_password">Reset Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="password">password</string>
+    <string name="email">Email</string>
 </resources>
