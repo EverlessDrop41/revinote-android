@@ -101,7 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
         rootRef = new Firebase("https://revinote.firebaseio.com/");
 
-        rootRef.unauth();
+        AuthData authData = rootRef.getAuth();
+        if (authData != null) {
+            rootRef.unauth();
+        }
     }
 
     void LoadHomePage() {
