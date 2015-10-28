@@ -125,6 +125,37 @@ public class UserSettings extends AppCompatActivity {
                 });
             }
         });
+
+        DeleteAccBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pass = DeleteAccPass.getText().toString();
+
+                rootRef.removeUser(UserEmail, pass, new Firebase.ResultHandler() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(), "Successfully Removed your account", Toast.LENGTH_SHORT).show();
+
+                        AuthData authData = rootRef.getAuth();
+                        if (authData != null) {
+                            rootRef.unauth();
+                        }
+
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserSettings.this);
+
+                        builder.setMessage(firebaseError.getMessage()).setTitle("Error Removing Account");
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
+            }
+        });
     }
 
     @Override
