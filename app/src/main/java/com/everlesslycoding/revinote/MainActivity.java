@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.StackView;
 import android.widget.Toast;
 
 import com.firebase.client.AuthData;
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     EditText PasswordInput;
     Button LoginButton;
     Button ForgotPassBtn;
+    LinearLayout ButtonLayout;
+    ProgressBar LoadingBar;
 
     Firebase rootRef;
 
@@ -45,11 +50,18 @@ public class MainActivity extends AppCompatActivity {
             LoginButton = (Button)findViewById(R.id.LoginButton);
             ForgotPassBtn = (Button) findViewById(R.id.ForgotPassword);
 
+            ButtonLayout = (LinearLayout) findViewById(R.id.buttonsLayout);
+            LoadingBar = (ProgressBar) findViewById(R.id.progressBar);
+
+            hideProgressBar();
+
             LoginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final String Email = EmailInput.getText().toString();
                     final String Password = PasswordInput.getText().toString();
+
+                    showProgressBar();
 
                     final Firebase.ResultHandler SignUpHandler = new Firebase.ResultHandler() {
                         @Override
@@ -59,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
                                 public void onAuthenticated(AuthData authData) {
                                     // Authenticated successfully with payload authData
                                     Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
+                                    hideProgressBar();
                                     LoadHomePage();
                                 }
                                 @Override
                                 public void onAuthenticationError(FirebaseError error) {
+                                    hideProgressBar();
                                     Toast.makeText(getBaseContext(), "[SU-LI] ERROR: " + error.getMessage() + " " + Email, Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -70,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onError(FirebaseError error) {
+                            hideProgressBar();
                             Toast.makeText(getBaseContext(), "[SU] ERROR: " + error.getMessage() + " " + Email, Toast.LENGTH_LONG).show();
                         }
                     };
@@ -77,12 +92,14 @@ public class MainActivity extends AppCompatActivity {
                     Firebase.AuthResultHandler LoginHandler = new Firebase.AuthResultHandler() {
                         @Override
                         public void onAuthenticated(AuthData authData) {
+                            hideProgressBar();
                             // Authenticated successfully with payload authData
                             Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
                             LoadHomePage();
                         }
                         @Override
                         public void onAuthenticationError(FirebaseError error) {
+                            hideProgressBar();
                             if (error.getCode() == FirebaseError.USER_DOES_NOT_EXIST) {
                                 rootRef.createUser(Email, Password, SignUpHandler);
                             } else {
@@ -103,6 +120,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    void showProgressBar () {
+        ButtonLayout.setVisibility(View.INVISIBLE);
+        LoadingBar.setVisibility(View.VISIBLE);
+    }
+
+    void hideProgressBar () {
+        ButtonLayout.setVisibility(View.VISIBLE);
+        LoadingBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
