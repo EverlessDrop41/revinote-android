@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     EditText EmailInput;
     EditText PasswordInput;
     Button LoginButton;
+    Button SignUpButton;
     Button ForgotPassBtn;
     LinearLayout ButtonLayout;
     ProgressBar LoadingBar;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             PasswordInput = (EditText)findViewById(R.id.PasswordInput);
             LoginButton = (Button)findViewById(R.id.LoginButton);
             ForgotPassBtn = (Button) findViewById(R.id.ForgotPassword);
+            SignUpButton = (Button) findViewById(R.id.SignUpButton);
 
             ButtonLayout = (LinearLayout) findViewById(R.id.buttonsLayout);
             LoadingBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -63,6 +65,34 @@ public class MainActivity extends AppCompatActivity {
 
                     showProgressBar();
 
+                    Firebase.AuthResultHandler LoginHandler = new Firebase.AuthResultHandler() {
+                        @Override
+                        public void onAuthenticated(AuthData authData) {
+                            hideProgressBar();
+                            // Authenticated successfully with payload authData
+                            Toast.makeText(getBaseContext(), (String) authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
+                            LoadHomePage();
+                        }
+
+                        @Override
+                        public void onAuthenticationError(FirebaseError error) {
+                            hideProgressBar();
+                            Toast.makeText(getBaseContext(), "[LI] ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    };
+                    Log.d("LOGIN DATA", "Email: " + Email + " Password: " + Password);
+                    rootRef.authWithPassword(Email, Password, LoginHandler);
+                }
+            });
+
+            SignUpButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String Email = EmailInput.getText().toString();
+                    final String Password = PasswordInput.getText().toString();
+
+                    showProgressBar();
+
                     final Firebase.ResultHandler SignUpHandler = new Firebase.ResultHandler() {
                         @Override
                         public void onSuccess() {
@@ -70,10 +100,11 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onAuthenticated(AuthData authData) {
                                     // Authenticated successfully with payload authData
-                                    Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getBaseContext(), (String) authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
                                     hideProgressBar();
                                     LoadHomePage();
                                 }
+
                                 @Override
                                 public void onAuthenticationError(FirebaseError error) {
                                     hideProgressBar();
@@ -89,26 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     };
 
-                    Firebase.AuthResultHandler LoginHandler = new Firebase.AuthResultHandler() {
-                        @Override
-                        public void onAuthenticated(AuthData authData) {
-                            hideProgressBar();
-                            // Authenticated successfully with payload authData
-                            Toast.makeText(getBaseContext(), (String)authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
-                            LoadHomePage();
-                        }
-                        @Override
-                        public void onAuthenticationError(FirebaseError error) {
-                            hideProgressBar();
-                            if (error.getCode() == FirebaseError.USER_DOES_NOT_EXIST) {
-                                rootRef.createUser(Email, Password, SignUpHandler);
-                            } else {
-                                Toast.makeText(getBaseContext(), "[LI] ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    };
-                    Log.d("LOGIN DATA","Email: " + Email + " Password: " + Password);
-                    rootRef.authWithPassword(Email, Password, LoginHandler);
+                    rootRef.createUser(Email, Password, SignUpHandler);
                 }
             });
 
