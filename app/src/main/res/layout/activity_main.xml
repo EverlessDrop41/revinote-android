@@ -53,15 +53,19 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/LoginButton"
-            android:text="@string/LoginButton"
-            android:layout_below="@+id/PasswordInput"/>
+            android:text="@string/LoginButton"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/SignUpButton"
+            android:text="@string/SignupButton"/>
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ForgotPassword"
-            android:text="@string/ForgotPassword"
-            android:layout_below="@+id/LoginButton"/>
+            android:text="@string/ForgotPassword"/>
     </LinearLayout>
 
 
