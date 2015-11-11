@@ -33,10 +33,18 @@
         <activity
             android:name=".ForgotPassword"
             android:label="@string/action_forgot_password"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.everlesslycoding.revinote.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SubjectsList"
+            android:label="@string/action_subjects_list"
+            android:parentActivityName=".HomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.everlesslycoding.revinote.HomePage" />
         </activity>
     </application>
 
