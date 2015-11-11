@@ -22,6 +22,7 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        Firebase.setAndroidContext(getApplicationContext());
 
         NameLabel = (TextView) findViewById(R.id.NameTextView);
         SubjectsButton = (Button) findViewById(R.id.SubjectsButton);
@@ -52,8 +53,8 @@ public class HomePage extends AppCompatActivity {
     }
 
     void LoadSubjectsPage() {
-        //Intent i = new Intent(HomePage.this, UserSettings.class);
-        //startActivity(i);
+        Intent i = new Intent(HomePage.this, SubjectsList.class);
+        startActivity(i);
     }
 
     @Override
