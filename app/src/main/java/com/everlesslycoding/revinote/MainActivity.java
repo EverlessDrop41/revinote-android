@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         AuthData authData = rootRef.getAuth();
         try {
-            if (authData != null && true) {
+            if (authData != null) {
                 LoadHomePage();
             } else {
                 EmailInput = (EditText)findViewById(R.id.EmailInput);
