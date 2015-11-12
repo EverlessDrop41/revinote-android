@@ -3,6 +3,7 @@ package com.everlesslycoding.revinote;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,9 +30,12 @@ public class HomePage extends AppCompatActivity {
         SettingsButton = (Button) findViewById(R.id.AccountSettingBtn);
 
         Firebase ref = new Firebase("https://revinote.firebaseio.com/");
-
-        NameLabel.setText(ref.getAuth().getProviderData().get("email").toString());
-
+        if (ref != null) {
+            NameLabel.setText(ref.getAuth().getProviderData().get("email").toString());
+        } else {
+            Log.d("[HOMEPAGE]", "Firebase reference is null");
+            finish();
+        }
         SettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
