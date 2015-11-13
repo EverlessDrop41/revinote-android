@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.everlesslycoding.revinote.Subjects.Subject;
+import com.everlesslycoding.revinote.Subjects.SubjectAdapter;
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -25,8 +27,9 @@ public class SubjectsList extends AppCompatActivity {
 
     ListView mSubjectsList;
 
-    ArrayAdapter<String> mAdapter;
-    ArrayList<String> mSubjects = new ArrayList<>();
+    //ArrayAdapter<String> mAdapter;
+    SubjectAdapter mAdapter;
+    ArrayList<Subject> mSubjects = new ArrayList<>();
 
     Firebase ref;
     AuthData auth;
@@ -41,18 +44,7 @@ public class SubjectsList extends AppCompatActivity {
 
         mSubjectsList = (ListView) findViewById(R.id.SubjectsList);
 
-        mAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, mSubjects) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
-
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
-
-                textView.setTextColor(Color.BLACK);
-
-                return view;
-            }
-        };
+        mAdapter = new SubjectAdapter(getApplicationContext(), mSubjects);
 
         mSubjectsList.setAdapter(mAdapter);
 
@@ -79,8 +71,8 @@ public class SubjectsList extends AppCompatActivity {
 
                     for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                         try {
-                            String subject = postSnapshot.child("name").getValue(String.class) + "";
-                            Log.d("[Subject List]", subject );
+                            Subject subject = postSnapshot.getValue(Subject.class);
+                            Log.d("[Subject List]", subject.toString() );
                             mSubjects.add(subject);
                             mAdapter.notifyDataSetChanged();
                         } catch (Exception e) {
