@@ -1,7 +1,7 @@
 package com.everlesslycoding.revinote.Subjects;
 
 /**
- * Created by Tom on 13/11/2015.
+ * Created by Emily on 13/11/2015.
  */
 public class Subject {
     String name;
