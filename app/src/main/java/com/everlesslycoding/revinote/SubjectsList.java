@@ -48,16 +48,10 @@ public class SubjectsList extends AppCompatActivity {
 
         mSubjectsList.setAdapter(mAdapter);
 
-        /*mSubjects.add("English");
-        mSubjects.add("Maths");
-        mSubjects.add("Chemistry");
-        mAdapter.notifyDataSetChanged();*/
-
         auth = ref.getAuth();
 
         if (auth != null) {
             String uid = auth.getUid();
-            Toast.makeText(getApplicationContext(),uid, Toast.LENGTH_LONG).show();
 
             Firebase userBase = ref.child(uid);
             Firebase subjectBase = userBase.child("subjects");

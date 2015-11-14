@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onAuthenticated(AuthData authData) {
                                 hideProgressBar();
                                 // Authenticated successfully with payload authData
-                                Toast.makeText(getBaseContext(), (String) authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getBaseContext(), (String) authData.getProviderData().get("email"), Toast.LENGTH_LONG).show();
                                 LoadHomePage();
                             }
 
