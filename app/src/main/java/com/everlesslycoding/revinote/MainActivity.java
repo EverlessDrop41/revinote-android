@@ -163,13 +163,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void showProgressBar () {
-        ButtonLayout.setVisibility(View.INVISIBLE);
+        ButtonLayout.setVisibility(View.GONE);
         LoadingBar.setVisibility(View.VISIBLE);
     }
 
     void hideProgressBar () {
         ButtonLayout.setVisibility(View.VISIBLE);
-        LoadingBar.setVisibility(View.INVISIBLE);
+        LoadingBar.setVisibility(View.GONE);
     }
 
     void setUserPrefs(String name, String pass) {
