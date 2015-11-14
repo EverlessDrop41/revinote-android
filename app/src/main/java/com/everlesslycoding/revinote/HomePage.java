@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
+
+import java.util.Map;
 
 public class HomePage extends AppCompatActivity {
 
@@ -31,7 +34,10 @@ public class HomePage extends AppCompatActivity {
 
         Firebase ref = new Firebase("https://revinote.firebaseio.com/");
         if (ref != null) {
-            NameLabel.setText(ref.getAuth().getProviderData().get("email").toString());
+            AuthData auth = ref.getAuth();
+            Map <String, Object> providerData = auth.getProviderData();
+
+            NameLabel.setText(providerData.get("email").toString());
         } else {
             Log.d("[HOMEPAGE]", "Firebase reference is null");
             finish();
