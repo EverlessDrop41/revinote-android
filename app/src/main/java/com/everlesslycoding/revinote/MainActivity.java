@@ -22,6 +22,7 @@ import com.firebase.client.FirebaseError;
 
 import java.io.Serializable;
 import java.sql.Ref;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,16 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Firebase.setAndroidContext(getApplicationContext());
 
-        EmailInput = (EditText)findViewById(R.id.EmailInput);
-        PasswordInput = (EditText)findViewById(R.id.PasswordInput);
-        LoginButton = (Button)findViewById(R.id.LoginButton);
-        ForgotPassBtn = (Button) findViewById(R.id.ForgotPassword);
-        SignUpButton = (Button) findViewById(R.id.SignUpButton);
-
-        ButtonLayout = (LinearLayout) findViewById(R.id.buttonsLayout);
-        LoadingBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        hideProgressBar();
+        SetupPage();
 
         rootRef = new Firebase("https://revinote.firebaseio.com/");
 
@@ -75,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "[SU-LI] ERROR: " + error.getMessage() + " " + userName, Toast.LENGTH_LONG).show();
                     }
                 });
-            } else {
-                SetupPage();
             }
         } catch (NullPointerException npe) {
             npe.printStackTrace();
@@ -85,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void SetupPage() {
+
+        EmailInput = (EditText)findViewById(R.id.EmailInput);
+        PasswordInput = (EditText)findViewById(R.id.PasswordInput);
+        LoginButton = (Button)findViewById(R.id.LoginButton);
+        ForgotPassBtn = (Button) findViewById(R.id.ForgotPassword);
+        SignUpButton = (Button) findViewById(R.id.SignUpButton);
+
+        ButtonLayout = (LinearLayout) findViewById(R.id.buttonsLayout);
+        LoadingBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        hideProgressBar();
+
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
