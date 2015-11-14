@@ -1,5 +1,6 @@
 package com.everlesslycoding.revinote;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +51,20 @@ public class SubjectsList extends AppCompatActivity {
         mSubjectsList.setAdapter(mAdapter);
 
         auth = ref.getAuth();
+
+        mSubjectsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Subject subjectToView = mAdapter.getSubjectAtPoistion(position);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(SubjectsList.this);
+
+                builder.setMessage(subjectToView.getDescription()).setTitle(subjectToView.getName());
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         if (auth != null) {
             String uid = auth.getUid();

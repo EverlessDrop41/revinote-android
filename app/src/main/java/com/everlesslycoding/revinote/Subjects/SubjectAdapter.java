@@ -44,6 +44,8 @@ public class SubjectAdapter extends BaseAdapter {
         return mSubjects.get(position);
     }
 
+    public Subject getSubjectAtPoistion (int position) { return mSubjects.get(position); }
+
     @Override
     public long getItemId(int position) {
         return 0;
