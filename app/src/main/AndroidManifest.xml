@@ -46,7 +46,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.everlesslycoding.revinote.HomePage" />
         </activity>
-        <activity android:name=".Notes.NotesList" >
+        <activity android:name=".Notes.NotesList"
+            android:label="@string/action_subjects_list"
+            android:parentActivityName=".Subjects.SubjectsList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.everlesslycoding.revinote.Subjects.SubjectsList" />
         </activity>
     </application>
 
