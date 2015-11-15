@@ -39,7 +39,7 @@
                 android:value="com.everlesslycoding.revinote.MainActivity" />
         </activity>
         <activity
-            android:name=".SubjectsList"
+            android:name=".Subjects.SubjectsList"
             android:label="@string/action_subjects_list"
             android:parentActivityName=".HomePage" >
             <meta-data

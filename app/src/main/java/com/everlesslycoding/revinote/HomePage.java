@@ -9,8 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.everlesslycoding.revinote.Subjects.SubjectsList;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 
