@@ -46,6 +46,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.everlesslycoding.revinote.HomePage" />
         </activity>
+        <activity android:name=".Notes.NotesList" >
+        </activity>
     </application>
 
 </manifest>
