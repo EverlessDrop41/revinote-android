@@ -38,8 +38,11 @@ public class NotesList extends AppCompatActivity {
 
         mNotesList = (ListView) findViewById(R.id.NotesList);
 
+        mAdapter = new NoteAdapter(getApplicationContext(), mNotes);
+        mNotesList.setAdapter(mAdapter);
+
         //TODO: switch to using a value that isn't hardcoded
-        final Subject subject = new Subject("Biology", "Life 'n Stuff");
+        final Subject subject = new Subject("biology", "Life 'n Stuff");
 
         if (auth != null) {
             String uid = auth.getUid();
@@ -60,7 +63,7 @@ public class NotesList extends AppCompatActivity {
                             String title   = postSnapshot.child("title").getValue(String.class);
                             String content = postSnapshot.child("content").getValue(String.class);
                             Note note = new Note(title, content, subject);
-                            Log.d("[Notes List]", note.toString() );
+                            Log.d("[Notes List]", note.getTitle() );
                             mNotes.add(note);
                             mAdapter.notifyDataSetChanged();
                         } catch (Exception e) {
