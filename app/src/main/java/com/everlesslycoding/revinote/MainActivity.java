@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 EmailInput.setVisibility(View.INVISIBLE);
                 PasswordInput.setVisibility(View.INVISIBLE);
                 showProgressBar();
-                
+
                 rootRef.authWithPassword(userName, password, new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
