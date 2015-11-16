@@ -1,5 +1,6 @@
 package com.everlesslycoding.revinote.Notes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,19 +43,20 @@ public class NotesList extends AppCompatActivity {
         mNotesList.setAdapter(mAdapter);
 
         //TODO: switch to using a value that isn't hardcoded
-        final Subject subject = new Subject("biology", "Life 'n Stuff");
+        final Subject subject = (Subject) getIntent().getSerializableExtra("Subject");//new Subject("biology", "Life 'n Stuff");
+        Log.d("[Notes List]", "Name: " + subject.getName());
 
         if (auth != null) {
             String uid = auth.getUid();
 
             Firebase userBase = ref.child(uid);
             Firebase subjectBase = userBase.child("notes");
-            Firebase noteBase = subjectBase.child(subject.getName());
+            Firebase noteBase = subjectBase.child(subject.getName().toLowerCase());
 
             noteBase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-                    Log.d("[Subjects List]", "There are " + snapshot.getChildrenCount() + " subjects: " + snapshot.getValue());
+                    Log.d("[Notes List]", "There are " + snapshot.getChildrenCount() + " notes: " + snapshot.getValue());
 
                     mNotes.clear();
 
