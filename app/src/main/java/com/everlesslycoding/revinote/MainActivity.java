@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         rootRef = new Firebase("https://revinote.firebaseio.com/");
 
+        if (rootRef.getAuth() != null) {
+            rootRef.unauth();
+        }
+
         SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_path), Context.MODE_PRIVATE);
 
         final String userName = prefs.getString("Username", null);
