@@ -56,10 +56,11 @@ public class MainActivity extends AppCompatActivity {
         final String password = prefs.getString("Password", null);
 
         try {
-            EmailInput.setVisibility(View.INVISIBLE);
-            PasswordInput.setVisibility(View.INVISIBLE);
-            showProgressBar();
             if (userName != null && password != null) {
+                EmailInput.setVisibility(View.INVISIBLE);
+                PasswordInput.setVisibility(View.INVISIBLE);
+                showProgressBar();
+                
                 rootRef.authWithPassword(userName, password, new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
@@ -192,8 +193,9 @@ public class MainActivity extends AppCompatActivity {
 
     void LoadHomePage() {
         Intent i = new Intent(this, HomePage.class);
-
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);
+        finish();
     }
 
     @Override
