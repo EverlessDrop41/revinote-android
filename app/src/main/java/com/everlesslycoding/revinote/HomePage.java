@@ -1,6 +1,8 @@
 package com.everlesslycoding.revinote;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,9 @@ public class HomePage extends AppCompatActivity {
     TextView NameLabel;
     Button SubjectsButton;
     Button SettingsButton;
+    Button LogoutButton;
+
+    Firebase ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +36,9 @@ public class HomePage extends AppCompatActivity {
         NameLabel = (TextView) findViewById(R.id.NameTextView);
         SubjectsButton = (Button) findViewById(R.id.SubjectsButton);
         SettingsButton = (Button) findViewById(R.id.AccountSettingBtn);
+        LogoutButton = (Button) findViewById(R.id.LogoutBtn);
 
-        Firebase ref = new Firebase("https://revinote.firebaseio.com/");
+        ref = new Firebase("https://revinote.firebaseio.com/");
         if (ref != null) {
             AuthData auth = ref.getAuth();
             Map <String, Object> providerData = auth.getProviderData();
@@ -55,6 +61,22 @@ public class HomePage extends AppCompatActivity {
                 LoadSubjectsPage();
             }
         });
+
+        LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logout();
+            }
+        });
+    }
+
+    private void Logout() {
+        ref.unauth();
+
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.prefs_path), Context.MODE_PRIVATE);
+        prefs.edit().remove("Username").remove("Password").apply();
+
+        finish();
     }
 
     void LoadSettingsPage() {

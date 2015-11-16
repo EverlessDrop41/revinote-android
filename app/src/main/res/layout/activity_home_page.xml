@@ -40,4 +40,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/SubjectsButton"
         android:layout_alignEnd="@+id/SubjectsButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:id="@+id/LogoutBtn"
+        android:layout_below="@+id/AccountSettingBtn"
+        android:layout_alignRight="@+id/AccountSettingBtn"
+        android:layout_alignEnd="@+id/AccountSettingBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
