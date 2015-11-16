@@ -52,18 +52,25 @@ public class MainActivity extends AppCompatActivity {
         final String password = prefs.getString("Password", null);
 
         try {
+            EmailInput.setVisibility(View.INVISIBLE);
+            PasswordInput.setVisibility(View.INVISIBLE);
+            showProgressBar();
             if (userName != null && password != null) {
                 rootRef.authWithPassword(userName, password, new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
                         // Authenticated successfully with payload authData
                         hideProgressBar();
+                        EmailInput.setVisibility(View.VISIBLE);
+                        PasswordInput.setVisibility(View.VISIBLE);
                         LoadHomePage();
                     }
 
                     @Override
                     public void onAuthenticationError(FirebaseError error) {
                         hideProgressBar();
+                        EmailInput.setVisibility(View.VISIBLE);
+                        PasswordInput.setVisibility(View.VISIBLE);
                         Toast.makeText(getBaseContext(), "[SU-LI] ERROR: " + error.getMessage() + " " + userName, Toast.LENGTH_LONG).show();
                     }
                 });
