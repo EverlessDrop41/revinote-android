@@ -1,6 +1,7 @@
 package com.everlesslycoding.revinote.Subjects;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.everlesslycoding.revinote.Notes.NotesList;
 import com.everlesslycoding.revinote.R;
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
@@ -51,12 +53,16 @@ public class SubjectsList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Subject subjectToView = mAdapter.getSubjectAtPoistion(position);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(SubjectsList.this);
+                Intent i = new Intent(getApplicationContext(), NotesList.class);
+                i.putExtra("Subject", subjectToView);
+                startActivity(i);
+
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(SubjectsList.this);
 
                 builder.setMessage(subjectToView.getDescription()).setTitle(subjectToView.getName());
 
                 AlertDialog dialog = builder.create();
-                dialog.show();
+                dialog.show();*/
             }
         });
 

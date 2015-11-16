@@ -1,9 +1,11 @@
 package com.everlesslycoding.revinote.Subjects;
 
+import java.io.Serializable;
+
 /**
  * Created by Emily on 13/11/2015.
  */
-public class Subject {
+public class Subject implements Serializable {
     String name;
     String description;
 
