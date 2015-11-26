@@ -6,12 +6,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.everlesslycoding.revinote.R;
+import com.everlesslycoding.revinote.Subjects.Subject;
 import com.firebase.client.Firebase;
 
 /**
  * Created by emilyperegrine on 25/11/2015.
  */
 public class NoteView extends AppCompatActivity {
+
+    public static final String DEFAULT_URL = "http://www.revinote.com/subjects/markdown/-K0ucgoBxgGRSZf-o3yq";
+    public static final String BASE_URL = "http://www.revinote.com/subjects/";
 
     Firebase ref;
 
@@ -42,4 +46,17 @@ public class NoteView extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public static String getNoteUrl(String subj, String id) {
+        return BASE_URL + subj + '/' + id;
+    }
+
+    public static String getNoteUrl(Subject subj, String id) {
+        return getNoteUrl(subj.getName(), id);
+    }
+
+    /*
+    public static String getNoteUrl (Subject subj, Note id) {
+        return getNoteUrl(subj, id.)
+    }*/
 }
