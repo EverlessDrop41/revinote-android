@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 
 import com.everlesslycoding.revinote.R;
 import com.everlesslycoding.revinote.Subjects.Subject;
@@ -14,10 +15,12 @@ import com.firebase.client.Firebase;
  */
 public class NoteView extends AppCompatActivity {
 
-    public static final String DEFAULT_URL = "http://www.revinote.com/subjects/markdown/-K0ucgoBxgGRSZf-o3yq";
-    public static final String BASE_URL = "http://www.revinote.com/subjects/";
+    public static final String DEFAULT_URL = "http://www.revinote.com/formatted_post/70e2f45a-53e3-442e-866c-a02d727daab6/markdown/-K0ucgoBxgGRSZf-o3yq";
+    public static final String BASE_URL = "http://www.revinote.com/formatted_post/";
 
     Firebase ref;
+
+    WebView NoteViewer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,10 @@ public class NoteView extends AppCompatActivity {
         Firebase.setAndroidContext(getApplicationContext());
 
         ref = new Firebase("https://revinote.firebaseio.com/");
+
+        NoteViewer = (WebView) findViewById(R.id.noteView);
+        NoteViewer.getSettings().setJavaScriptEnabled(true);
+        NoteViewer.loadUrl(DEFAULT_URL);
     }
 
     @Override
@@ -47,12 +54,12 @@ public class NoteView extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static String getNoteUrl(String subj, String id) {
-        return BASE_URL + subj + '/' + id;
+    public static String getNoteUrl(String uid, String subj, String id) {
+        return BASE_URL + uid + subj + '/' + id;
     }
 
-    public static String getNoteUrl(Subject subj, String id) {
-        return getNoteUrl(subj.getName(), id);
+    public static String getNoteUrl(String uid , Subject subj, String id) {
+        return getNoteUrl(uid, subj.getName(), id);
     }
 
     /*
