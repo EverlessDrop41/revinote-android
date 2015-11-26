@@ -1,13 +1,16 @@
 package com.everlesslycoding.revinote.Notes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.everlesslycoding.revinote.R;
 import com.everlesslycoding.revinote.Subjects.Subject;
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 
 /**
@@ -19,6 +22,7 @@ public class NoteView extends AppCompatActivity {
     public static final String BASE_URL = "http://www.revinote.com/formatted_post/";
 
     Firebase ref;
+    AuthData auth;
 
     WebView NoteViewer;
 
@@ -28,11 +32,23 @@ public class NoteView extends AppCompatActivity {
         setContentView(R.layout.activity_note_view);
         Firebase.setAndroidContext(getApplicationContext());
 
-        ref = new Firebase("https://revinote.firebaseio.com/");
-
         NoteViewer = (WebView) findViewById(R.id.noteView);
         NoteViewer.getSettings().setJavaScriptEnabled(true);
-        NoteViewer.loadUrl(DEFAULT_URL);
+
+        ref = new Firebase("https://revinote.firebaseio.com/");
+
+        Intent from = getIntent();
+        Note note = (Note) from.getSerializableExtra("Note");
+
+        auth = ref.getAuth();
+
+        if (auth != null) {
+            String url = getNoteUrl(auth.getUid(), note.getSubject(), note.getId());
+            NoteViewer.loadUrl(url);
+            Log.d("[Note Url]",url);
+        } else {
+            NoteViewer.loadUrl(DEFAULT_URL);
+        }
     }
 
     @Override
@@ -55,7 +71,7 @@ public class NoteView extends AppCompatActivity {
     }
 
     public static String getNoteUrl(String uid, String subj, String id) {
-        return BASE_URL + uid + subj + '/' + id;
+        return BASE_URL + uid + '/' + subj.toLowerCase() + '/' + id;
     }
 
     public static String getNoteUrl(String uid , Subject subj, String id) {
