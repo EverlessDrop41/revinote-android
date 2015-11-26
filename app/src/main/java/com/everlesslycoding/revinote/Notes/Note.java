@@ -11,15 +11,25 @@ public class Note implements Serializable {
     String mTitle;
     String mDescription;
     Subject mSubject;
+    String mId;
 
-    public Note(String title, String description, Subject subject) {
+    public Note(String title, String description, Subject subject, String id) {
         mTitle = title;
         mDescription = description;
         mSubject = subject;
+        mId = id;
     }
 
     public String getTitle() {
         return mTitle;
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
     }
 
     public void setTitle(String title) {

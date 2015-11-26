@@ -77,7 +77,7 @@ public class NotesList extends AppCompatActivity {
                         try {
                             String title   = postSnapshot.child("title").getValue(String.class);
                             String content = postSnapshot.child("content").getValue(String.class);
-                            Note note = new Note(title, content, subject);
+                            Note note = new Note(title, content, subject, postSnapshot.getKey());
                             Log.d("[Notes List]", note.getTitle() );
                             mNotes.add(note);
                             mAdapter.notifyDataSetChanged();

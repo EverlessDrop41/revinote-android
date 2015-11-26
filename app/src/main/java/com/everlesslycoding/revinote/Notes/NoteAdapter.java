@@ -26,9 +26,9 @@ public class NoteAdapter extends BaseAdapter {
         mContext = context;
     }
 
-    public void Add(String Name, String Description, Subject Subj) {
+    public void Add(String id, String Name, String Description, Subject Subj) {
         Log.d("Note Adapter", "Adding Note");
-        mNotes.add(new Note(Name, Description, Subj));
+        mNotes.add(new Note(Name, Description, Subj, id));
     }
 
     public void Add(Note Note) {
