@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.everlesslycoding.revinote.R;
@@ -52,6 +54,17 @@ public class NotesList extends AppCompatActivity {
             Firebase userBase = ref.child(uid);
             Firebase subjectBase = userBase.child("notes");
             Firebase noteBase = subjectBase.child(subject.getName().toLowerCase());
+
+            mNotesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Note noteToView = mAdapter.getNoteAtPoistion(position);
+
+                    Intent i = new Intent(getApplicationContext(), NoteView.class);
+                    i.putExtra("Note", noteToView);
+                    startActivity(i);
+                }
+            });
 
             noteBase.addValueEventListener(new ValueEventListener() {
                 @Override

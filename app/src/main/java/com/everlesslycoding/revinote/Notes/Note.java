@@ -2,10 +2,12 @@ package com.everlesslycoding.revinote.Notes;
 
 import com.everlesslycoding.revinote.Subjects.Subject;
 
+import java.io.Serializable;
+
 /**
  * Created by emilyperegrine on 15/11/2015.
  */
-public class Note {
+public class Note implements Serializable {
     String mTitle;
     String mDescription;
     Subject mSubject;
