@@ -53,6 +53,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.everlesslycoding.revinote.Subjects.SubjectsList" />
         </activity>
+        <activity android:name=".Notes.NoteView"
+            android:label="Note"
+            android:parentActivityName=".Notes.NotesList">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.everlesslycoding.revinote.Notes.NotesList" />
+        </activity>
     </application>
 
 </manifest>
